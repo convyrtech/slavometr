@@ -528,7 +528,16 @@ body {
 let balance = 10000;
 let betsHistory = [];
 let currentBet = null;
-let daysInDrunk = 15;
+
+// Дата начала запоя (25 сентября 2026)
+const drunkStartDate = new Date('2026-09-25T00:00:00');
+
+function getDaysInDrunk() {
+  const now = new Date();
+  const diffMs = now - drunkStartDate;
+  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+  return diffDays;
+}
 
 // Load state
 function loadState() {
@@ -537,7 +546,6 @@ function loadState() {
     const state = JSON.parse(saved);
     balance = state.balance || 10000;
     betsHistory = state.betsHistory || [];
-    daysInDrunk = state.daysInDrunk || 5;
   }
   updateUI();
   loadNews();
@@ -546,15 +554,14 @@ function loadState() {
 function saveState() {
   localStorage.setItem('slavometr_state', JSON.stringify({
     balance,
-    betsHistory,
-    daysInDrunk
+    betsHistory
   }));
 }
 
 function updateUI() {
   document.getElementById('balance').textContent = balance.toLocaleString('ru-RU') + '₽';
   document.getElementById('bets-count').textContent = betsHistory.length;
-  document.getElementById('days-counter').textContent = daysInDrunk + ' дней';
+  document.getElementById('days-counter').textContent = getDaysInDrunk() + ' дней';
   updateHistory();
 }
 
@@ -720,7 +727,6 @@ function randomOddsChange() {
 
 // Init
 loadState();
-setInterval(() => { daysInDrunk += 0.01; saveState(); updateUI(); }, 60000);
 setInterval(loadNews, 5 * 60 * 1000);
 setTimeout(randomOddsChange, 5000);
 </script>
