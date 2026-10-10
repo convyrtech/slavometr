@@ -2,255 +2,697 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🎲 Славометр — когда Слава выйдет на работу?</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>🎲 Славометр — Букмекерская контора</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  background: #0f1419;
+  color: #e7edf2;
   min-height: 100vh;
-  padding: 20px;
+  padding-bottom: 80px;
 }
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-}
-header {
+
+/* Header */
+.header {
+  background: linear-gradient(135deg, #1a1f2e 0%, #2d1b4e 100%);
+  padding: 16px;
   text-align: center;
-  color: white;
-  margin-bottom: 30px;
-  animation: fadeIn 0.6s ease;
+  border-bottom: 2px solid #7c3aed;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
 }
-h1 {
-  font-size: 2.5em;
+.logo {
+  font-size: 1.5em;
+  font-weight: 900;
+  margin-bottom: 4px;
+}
+.tagline {
+  font-size: 0.85em;
+  opacity: 0.8;
+  color: #a78bfa;
+}
+
+/* Stats Bar */
+.stats {
+  display: flex;
+  gap: 8px;
+  padding: 12px;
+  background: #1a1f2e;
+  border-bottom: 1px solid #2d3748;
+}
+.stat-card {
+  flex: 1;
+  background: #2d1b4e;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+  border: 1px solid #7c3aed;
+}
+.stat-label {
+  font-size: 0.7em;
+  opacity: 0.7;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.stat-value {
+  font-size: 1.3em;
   font-weight: 800;
+  color: #fbbf24;
+  margin-top: 4px;
+}
+
+/* Markets */
+.markets {
+  padding: 16px 12px;
+}
+.section-title {
+  font-size: 0.9em;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #a78bfa;
+  margin-bottom: 12px;
+  letter-spacing: 0.5px;
+}
+.market {
+  background: #1a1f2e;
+  border-radius: 12px;
+  padding: 14px;
   margin-bottom: 10px;
-  text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+  border: 1px solid #2d3748;
+  transition: all 0.2s;
 }
-.subtitle {
-  font-size: 1.2em;
-  opacity: 0.95;
-  font-weight: 500;
+.market:active {
+  transform: scale(0.98);
+  background: #252d3d;
 }
-.events {
-  display: grid;
-  gap: 16px;
-}
-.event {
-  background: white;
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-  transition: transform 0.2s, box-shadow 0.2s;
-  animation: slideUp 0.5s ease backwards;
-  cursor: pointer;
-}
-.event:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 28px rgba(0,0,0,0.25);
-}
-.event-header {
+.market-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 12px;
-}
-.event-icon {
-  font-size: 2.5em;
-  filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
-}
-.odds {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  color: white;
-  font-size: 1.8em;
-  font-weight: 800;
-  padding: 8px 16px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(245,87,108,0.4);
-}
-.event-text {
-  font-size: 1.1em;
-  line-height: 1.5;
-  color: #2d3748;
+  align-items: center;
   margin-bottom: 8px;
 }
-.event-time {
-  font-size: 0.9em;
-  color: #718096;
+.market-name {
+  font-size: 1em;
   font-weight: 600;
 }
-.loading {
-  text-align: center;
+.odds {
+  background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
   color: white;
-  font-size: 1.5em;
-  padding: 60px 20px;
+  font-size: 1.4em;
+  font-weight: 900;
+  padding: 6px 14px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(124,58,237,0.5);
+  min-width: 70px;
+  text-align: center;
 }
-.error {
-  background: #fed7d7;
-  border: 2px solid #fc8181;
-  border-radius: 12px;
+.odds.hot {
+  background: linear-gradient(135deg, #dc2626 0%, #f87171 100%);
+  animation: pulse 1s ease infinite;
+}
+.market-desc {
+  font-size: 0.8em;
+  opacity: 0.7;
+  line-height: 1.3;
+}
+.btn-bet {
+  width: 100%;
+  background: #7c3aed;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 1em;
+  font-weight: 700;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-bet:active {
+  background: #6d28d9;
+  transform: scale(0.97);
+}
+
+/* News Feed */
+.news-section {
+  padding: 16px 12px;
+  background: #0a0e14;
+}
+.news-item {
+  background: #1a1f2e;
+  border-left: 3px solid #7c3aed;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  font-size: 0.85em;
+  line-height: 1.4;
+  animation: slideIn 0.4s ease;
+}
+.news-icon {
+  font-size: 1.3em;
+  margin-right: 6px;
+}
+.news-impact {
+  display: inline-block;
+  background: #dc2626;
+  color: white;
+  font-size: 0.75em;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-left: 6px;
+  font-weight: 700;
+}
+
+/* Bet Modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.9);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
   padding: 20px;
-  color: #742a2a;
-  text-align: center;
 }
-footer {
-  text-align: center;
-  color: white;
-  margin-top: 40px;
-  opacity: 0.8;
+.modal.show {
+  display: flex;
+}
+.modal-content {
+  background: #1a1f2e;
+  border-radius: 16px;
+  padding: 24px;
+  max-width: 400px;
+  width: 100%;
+  border: 2px solid #7c3aed;
+  animation: modalIn 0.3s ease;
+}
+.modal-title {
+  font-size: 1.3em;
+  font-weight: 800;
+  margin-bottom: 16px;
+  color: #a78bfa;
+}
+.bet-summary {
+  background: #0f1419;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 16px;
   font-size: 0.9em;
 }
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
+.input-group {
+  margin-bottom: 16px;
 }
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+.input-group label {
+  display: block;
+  font-size: 0.85em;
+  margin-bottom: 6px;
+  color: #a78bfa;
+  font-weight: 600;
 }
-.refresh-btn {
-  background: white;
-  color: #667eea;
+.input-group input {
+  width: 100%;
+  background: #0f1419;
+  border: 1px solid #2d3748;
+  color: #e7edf2;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 1.1em;
+  font-weight: 700;
+}
+.potential-win {
+  background: #065f46;
+  color: #6ee7b7;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 16px;
+  font-weight: 700;
+}
+.modal-actions {
+  display: flex;
+  gap: 10px;
+}
+.btn-confirm {
+  flex: 1;
+  background: #10b981;
+  color: white;
   border: none;
-  padding: 12px 24px;
-  border-radius: 24px;
+  padding: 14px;
+  border-radius: 8px;
   font-size: 1em;
   font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  transition: transform 0.2s, box-shadow 0.2s;
-  margin-top: 15px;
 }
-.refresh-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+.btn-cancel {
+  flex: 1;
+  background: #374151;
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  font-size: 1em;
+  font-weight: 700;
+  cursor: pointer;
 }
-.refresh-btn:active {
-  transform: translateY(0);
+
+/* Bottom Nav */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #1a1f2e;
+  border-top: 1px solid #2d3748;
+  display: flex;
+  z-index: 100;
 }
-@media (max-width: 600px) {
-  h1 { font-size: 2em; }
-  .event { padding: 16px; }
-  .event-icon { font-size: 2em; }
-  .odds { font-size: 1.5em; padding: 6px 12px; }
+.nav-btn {
+  flex: 1;
+  padding: 12px;
+  text-align: center;
+  border: none;
+  background: none;
+  color: #9ca3af;
+  font-size: 0.75em;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.nav-btn.active {
+  color: #7c3aed;
+  background: #2d1b4e;
+}
+.nav-icon {
+  font-size: 1.5em;
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* Animations */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #10b981;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 700;
+  z-index: 2000;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.toast.show {
+  opacity: 1;
+}
+
+/* History */
+.history-section {
+  padding: 16px 12px;
+  display: none;
+}
+.history-section.active {
+  display: block;
+}
+.bet-history-item {
+  background: #1a1f2e;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-left: 3px solid #7c3aed;
+}
+.bet-status {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 0.75em;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.bet-status.active {
+  background: #fbbf24;
+  color: #0f1419;
 }
 </style>
 </head>
 <body>
-<div class="container">
-  <header>
-    <h1>🎲 СЛАВОМЕТР</h1>
-    <div class="subtitle">Когда Слава выйдет из запоя на работу?</div>
-    <button class="refresh-btn" onclick="loadEvents()">🔄 Обновить события</button>
-  </header>
-  
-  <div id="events" class="events">
-    <div class="loading">⏳ Загружаем абсурд...</div>
+
+<div class="header">
+  <div class="logo">🎲 СЛАВОМЕТР</div>
+  <div class="tagline">Букмекерская контора №1</div>
+</div>
+
+<div class="stats">
+  <div class="stat-card">
+    <div class="stat-label">Баланс</div>
+    <div class="stat-value" id="balance">10,000₽</div>
   </div>
+  <div class="stat-card">
+    <div class="stat-label">В запое</div>
+    <div class="stat-value" id="days-counter">5 дней</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Ставок</div>
+    <div class="stat-value" id="bets-count">0</div>
+  </div>
+</div>
+
+<div id="markets-tab" class="markets">
+  <div class="section-title">📊 Основные рынки</div>
   
-  <footer>
-    <p>События генерируются из новостных лент и чистого безумия 🌀</p>
-  </footer>
+  <div class="market" data-market="today">
+    <div class="market-header">
+      <div class="market-name">🚪 Выйдет СЕГОДНЯ</div>
+      <div class="odds" data-odds="3.50">3.50</div>
+    </div>
+    <div class="market-desc">До 23:59 сегодня появится на работе</div>
+    <button class="btn-bet" onclick="openBetModal('today', 'Выйдет СЕГОДНЯ', 3.50)">Сделать ставку</button>
+  </div>
+
+  <div class="market" data-market="tomorrow">
+    <div class="market-header">
+      <div class="market-name">📅 Завтра до обеда</div>
+      <div class="odds" data-odds="2.10">2.10</div>
+    </div>
+    <div class="market-desc">Завтра с утра до 14:00</div>
+    <button class="btn-bet" onclick="openBetModal('tomorrow', 'Завтра до обеда', 2.10)">Сделать ставку</button>
+  </div>
+
+  <div class="market" data-market="week">
+    <div class="market-header">
+      <div class="market-name">📆 В течение недели</div>
+      <div class="odds" data-odds="1.80">1.80</div>
+    </div>
+    <div class="market-desc">В ближайшие 7 дней</div>
+    <button class="btn-bet" onclick="openBetModal('week', 'В течение недели', 1.80)">Сделать ставку</button>
+  </div>
+
+  <div class="market" data-market="never">
+    <div class="market-header">
+      <div class="market-name">🌀 Никогда не выйдет</div>
+      <div class="odds hot" data-odds="15.00">15.00</div>
+    </div>
+    <div class="market-desc">Слава ушёл навсегда</div>
+    <button class="btn-bet" onclick="openBetModal('never', 'Никогда не выйдет', 15.00)">Сделать ставку</button>
+  </div>
+
+  <div class="section-title" style="margin-top: 24px;">🔥 Экзотические ставки</div>
+
+  <div class="market" data-market="squirrel">
+    <div class="market-header">
+      <div class="market-name">🐿️ Белку поймают первой</div>
+      <div class="odds" data-odds="7.20">7.20</div>
+    </div>
+    <div class="market-desc">Найдут белку раньше, чем Слава выйдет</div>
+    <button class="btn-bet" onclick="openBetModal('squirrel', 'Белку поймают первой', 7.20)">Сделать ставку</button>
+  </div>
+
+  <div class="market" data-market="governor">
+    <div class="market-header">
+      <div class="market-name">📱 Губернатор позвонит</div>
+      <div class="odds" data-odds="12.50">12.50</div>
+    </div>
+    <div class="market-desc">Слава выйдет после звонка губернатора</div>
+    <button class="btn-bet" onclick="openBetModal('governor', 'Губернатор позвонит', 12.50)">Сделать ставку</button>
+  </div>
+</div>
+
+<div id="news-tab" class="news-section">
+  <div class="section-title">📰 Лента событий</div>
+  <div id="news-feed">
+    <div class="news-item">
+      <span class="news-icon">🐿️</span>
+      Белка замечена возле офиса! Коэф. падают!
+      <span class="news-impact">-0.3</span>
+    </div>
+  </div>
+</div>
+
+<div id="history-tab" class="history-section">
+  <div class="section-title">📜 История ставок</div>
+  <div id="history-list">
+    <p style="text-align: center; opacity: 0.5; padding: 40px 0;">Ставок пока нет</p>
+  </div>
+</div>
+
+<!-- Bet Modal -->
+<div id="bet-modal" class="modal">
+  <div class="modal-content">
+    <div class="modal-title">💰 Сделать ставку</div>
+    <div class="bet-summary" id="bet-summary"></div>
+    <div class="input-group">
+      <label>Сумма ставки</label>
+      <input type="number" id="bet-amount" placeholder="1000" value="1000" min="10" step="10">
+    </div>
+    <div class="potential-win" id="potential-win"></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeBetModal()">Отмена</button>
+      <button class="btn-confirm" onclick="confirmBet()">Поставить</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast" class="toast"></div>
+
+<!-- Bottom Nav -->
+<div class="bottom-nav">
+  <button class="nav-btn active" onclick="switchTab('markets')">
+    <span class="nav-icon">🎲</span>
+    Ставки
+  </button>
+  <button class="nav-btn" onclick="switchTab('news')">
+    <span class="nav-icon">📰</span>
+    Новости
+  </button>
+  <button class="nav-btn" onclick="switchTab('history')">
+    <span class="nav-icon">📜</span>
+    История
+  </button>
 </div>
 
 <script>
-let eventsData = [];
+// State
+let balance = 10000;
+let betsHistory = [];
+let currentBet = null;
+let daysInDrunk = 5;
 
-function getEventIcon(text) {
-  const lower = text.toLowerCase();
-  if (lower.includes('губернатор') || lower.includes('кремл')) return '📱';
-  if (lower.includes('фсб') || lower.includes('шпион')) return '🕴️';
-  if (lower.includes('белк')) return '🐿️';
-  if (lower.includes('космос') || lower.includes('маск') || lower.includes('spacex')) return '🚀';
-  if (lower.includes('мир') || lower.includes('украин') || lower.includes('сделк')) return '🕊️';
-  if (lower.includes('портал') || lower.includes('измерение')) return '🌀';
-  if (lower.includes('скорая') || lower.includes('больниц')) return '🚑';
-  if (lower.includes('звон') || lower.includes('телефон')) return '📞';
-  if (lower.includes('чат') || lower.includes('сообщ')) return '💬';
-  if (lower.includes('вышел') || lower.includes('пришёл')) return '🚪';
-  if (lower.includes('клоп') || lower.includes('насеком')) return '🐛';
-  if (lower.includes('чай') || lower.includes('кофе')) return '☕';
-  if (lower.includes('белорус')) return '🇧🇾';
-  if (lower.includes('трен') || lower.includes('спорт')) return '🏆';
-  if (lower.includes('взры') || lower.includes('удар')) return '💥';
-  if (lower.includes('интернет') || lower.includes('starlink')) return '📡';
-  if (lower.includes('угро') || lower.includes('сделк')) return '⚠️';
-  return '🎲';
+// Load state
+function loadState() {
+  const saved = localStorage.getItem('slavometr_state');
+  if (saved) {
+    const state = JSON.parse(saved);
+    balance = state.balance || 10000;
+    betsHistory = state.betsHistory || [];
+    daysInDrunk = state.daysInDrunk || 5;
+  }
+  updateUI();
+  loadNews();
 }
 
-function getEventTime(odds) {
-  if (odds < 5) return 'Сегодня 09:00';
-  if (odds < 15) return 'Сегодня 12:00';
-  if (odds < 50) return 'Сегодня 15:00';
-  if (odds < 100) return 'Завтра 10:00';
-  if (odds < 200) return 'Через 2 дня';
-  if (odds < 300) return 'Через неделю';
-  return 'Через 2 недели';
+function saveState() {
+  localStorage.setItem('slavometr_state', JSON.stringify({
+    balance,
+    betsHistory,
+    daysInDrunk
+  }));
 }
 
-function renderEvents() {
-  const container = document.getElementById('events');
+function updateUI() {
+  document.getElementById('balance').textContent = balance.toLocaleString('ru-RU') + '₽';
+  document.getElementById('bets-count').textContent = betsHistory.length;
+  document.getElementById('days-counter').textContent = daysInDrunk + ' дней';
+  updateHistory();
+}
+
+// Tabs
+function switchTab(tab) {
+  document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+  event.target.closest('.nav-btn').classList.add('active');
   
-  if (eventsData.length === 0) {
-    container.innerHTML = '<div class="error">😱 События не найдены. Запустите генератор!</div>';
+  document.getElementById('markets-tab').style.display = tab === 'markets' ? 'block' : 'none';
+  document.getElementById('news-tab').classList.toggle('active', tab === 'news');
+  document.getElementById('history-tab').classList.toggle('active', tab === 'history');
+}
+
+// Bet Modal
+function openBetModal(marketId, marketName, odds) {
+  if (balance < 10) {
+    showToast('Недостаточно средств!', false);
     return;
   }
   
-  // Сортируем по возрастанию коэффициента (самые вероятные первыми)
-  const sorted = [...eventsData].sort((a, b) => a.odds - b.odds);
+  currentBet = { marketId, marketName, odds };
+  document.getElementById('bet-summary').innerHTML = `
+    <strong>${marketName}</strong><br>
+    Коэффициент: <strong>${odds}</strong>
+  `;
   
-  container.innerHTML = sorted.map((event, index) => `
-    <div class="event" style="animation-delay: ${index * 0.05}s">
-      <div class="event-header">
-        <div class="event-icon">${getEventIcon(event.event)}</div>
-        <div class="odds">${event.odds.toFixed(2)}</div>
+  const amount = parseInt(document.getElementById('bet-amount').value) || 1000;
+  updatePotentialWin(amount, odds);
+  
+  document.getElementById('bet-modal').classList.add('show');
+  
+  document.getElementById('bet-amount').oninput = (e) => {
+    updatePotentialWin(parseInt(e.target.value) || 0, odds);
+  };
+}
+
+function closeBetModal() {
+  document.getElementById('bet-modal').classList.remove('show');
+  currentBet = null;
+}
+
+function updatePotentialWin(amount, odds) {
+  const win = (amount * odds).toFixed(0);
+  const profit = (win - amount).toFixed(0);
+  document.getElementById('potential-win').innerHTML = `
+    Возможный выигрыш: <strong>${parseInt(win).toLocaleString('ru-RU')}₽</strong><br>
+    <span style="font-size: 0.85em">Чистая прибыль: +${parseInt(profit).toLocaleString('ru-RU')}₽</span>
+  `;
+}
+
+function confirmBet() {
+  const amount = parseInt(document.getElementById('bet-amount').value);
+  
+  if (!amount || amount < 10) {
+    showToast('Минимальная ставка 10₽', false);
+    return;
+  }
+  
+  if (amount > balance) {
+    showToast('Недостаточно средств!', false);
+    return;
+  }
+  
+  balance -= amount;
+  
+  const bet = {
+    id: Date.now(),
+    market: currentBet.marketName,
+    amount: amount,
+    odds: currentBet.odds,
+    potentialWin: (amount * currentBet.odds).toFixed(0),
+    time: new Date().toLocaleString('ru-RU'),
+    status: 'active'
+  };
+  
+  betsHistory.unshift(bet);
+  saveState();
+  updateUI();
+  
+  closeBetModal();
+  showToast(`Ставка принята: ${amount}₽ на "${currentBet.marketName}"`);
+  
+  // Random odds change
+  setTimeout(randomOddsChange, Math.random() * 5000 + 3000);
+}
+
+// Toast
+function showToast(message, success = true) {
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.style.background = success ? '#10b981' : '#dc2626';
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 3000);
+}
+
+// History
+function updateHistory() {
+  const list = document.getElementById('history-list');
+  if (betsHistory.length === 0) {
+    list.innerHTML = '<p style="text-align: center; opacity: 0.5; padding: 40px 0;">Ставок пока нет</p>';
+    return;
+  }
+  
+  list.innerHTML = betsHistory.map(bet => `
+    <div class="bet-history-item">
+      <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+        <strong>${bet.market}</strong>
+        <span class="bet-status ${bet.status}">${bet.status === 'active' ? 'Активна' : 'Закрыта'}</span>
       </div>
-      <div class="event-text">${event.event}</div>
-      <div class="event-time">⏰ ${getEventTime(event.odds)}</div>
+      <div style="font-size: 0.85em; opacity: 0.7;">
+        Ставка: ${bet.amount}₽ × ${bet.odds} = ${parseInt(bet.potentialWin).toLocaleString('ru-RU')}₽<br>
+        ${bet.time}
+      </div>
     </div>
   `).join('');
 }
 
-async function loadEvents() {
-  const container = document.getElementById('events');
-  container.innerHTML = '<div class="loading">⏳ Загружаем события...</div>';
-  
+// News Feed
+async function loadNews() {
   try {
     const response = await fetch('slava-events.json?t=' + Date.now());
+    const events = await response.json();
     
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
-    }
-    
-    const data = await response.json();
-    
-    if (!Array.isArray(data) || data.length === 0) {
-      throw new Error('JSON пустой или неправильного формата');
-    }
-    
-    eventsData = data;
-    renderEvents();
-    
-  } catch (error) {
-    console.error('Ошибка загрузки:', error);
-    container.innerHTML = `
-      <div class="error">
-        <h3>❌ Не удалось загрузить события</h3>
-        <p style="margin-top: 10px;">${error.message}</p>
-        <p style="margin-top: 10px; font-size: 0.9em;">
-          Проверьте, что файл <code>slava-events.json</code> находится в той же папке.
-        </p>
+    const feed = document.getElementById('news-feed');
+    feed.innerHTML = events.slice(0, 10).map(event => `
+      <div class="news-item">
+        <span class="news-icon">${getEventIcon(event.event)}</span>
+        ${event.event}
+        <span class="news-impact">${event.odds > 100 ? '+0.5' : '-0.2'}</span>
       </div>
-    `;
+    `).join('');
+  } catch (err) {
+    console.error('News load failed:', err);
   }
 }
 
-// Автозагрузка при открытии страницы
-loadEvents();
+function getEventIcon(text) {
+  const lower = text.toLowerCase();
+  if (lower.includes('губернатор')) return '📱';
+  if (lower.includes('фсб')) return '🕴️';
+  if (lower.includes('белк')) return '🐿️';
+  if (lower.includes('космос') || lower.includes('маск')) return '🚀';
+  if (lower.includes('портал')) return '🌀';
+  return '📰';
+}
 
-// Автообновление каждые 5 минут
-setInterval(loadEvents, 5 * 60 * 1000);
+// Random odds changes
+function randomOddsChange() {
+  const markets = document.querySelectorAll('.market');
+  const randomMarket = markets[Math.floor(Math.random() * markets.length)];
+  const oddsEl = randomMarket.querySelector('.odds');
+  const currentOdds = parseFloat(oddsEl.dataset.odds);
+  const change = (Math.random() - 0.5) * 0.4;
+  const newOdds = Math.max(1.1, currentOdds + change).toFixed(2);
+  
+  oddsEl.dataset.odds = newOdds;
+  oddsEl.textContent = newOdds;
+  oddsEl.classList.add('hot');
+  setTimeout(() => oddsEl.classList.remove('hot'), 2000);
+  
+  setTimeout(randomOddsChange, Math.random() * 10000 + 5000);
+}
+
+// Init
+loadState();
+setInterval(() => { daysInDrunk += 0.01; saveState(); updateUI(); }, 60000);
+setInterval(loadNews, 5 * 60 * 1000);
+setTimeout(randomOddsChange, 5000);
 </script>
+
 </body>
 </html>
