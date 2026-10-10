@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎲 Славометр — когда Слава выйдет на работу?</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  padding: 20px;
+}
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+header {
+  text-align: center;
+  color: white;
+  margin-bottom: 30px;
+  animation: fadeIn 0.6s ease;
+}
+h1 {
+  font-size: 2.5em;
+  font-weight: 800;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+}
+.subtitle {
+  font-size: 1.2em;
+  opacity: 0.95;
+  font-weight: 500;
+}
+.events {
+  display: grid;
+  gap: 16px;
+}
+.event {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  transition: transform 0.2s, box-shadow 0.2s;
+  animation: slideUp 0.5s ease backwards;
+  cursor: pointer;
+}
+.event:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.25);
+}
+.event-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+.event-icon {
+  font-size: 2.5em;
+  filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
+}
+.odds {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  font-size: 1.8em;
+  font-weight: 800;
+  padding: 8px 16px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(245,87,108,0.4);
+}
+.event-text {
+  font-size: 1.1em;
+  line-height: 1.5;
+  color: #2d3748;
+  margin-bottom: 8px;
+}
+.event-time {
+  font-size: 0.9em;
+  color: #718096;
+  font-weight: 600;
+}
+.loading {
+  text-align: center;
+  color: white;
+  font-size: 1.5em;
+  padding: 60px 20px;
+}
+.error {
+  background: #fed7d7;
+  border: 2px solid #fc8181;
+  border-radius: 12px;
+  padding: 20px;
+  color: #742a2a;
+  text-align: center;
+}
+footer {
+  text-align: center;
+  color: white;
+  margin-top: 40px;
+  opacity: 0.8;
+  font-size: 0.9em;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.refresh-btn {
+  background: white;
+  color: #667eea;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 24px;
+  font-size: 1em;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: transform 0.2s, box-shadow 0.2s;
+  margin-top: 15px;
+}
+.refresh-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+}
+.refresh-btn:active {
+  transform: translateY(0);
+}
+@media (max-width: 600px) {
+  h1 { font-size: 2em; }
+  .event { padding: 16px; }
+  .event-icon { font-size: 2em; }
+  .odds { font-size: 1.5em; padding: 6px 12px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>🎲 СЛАВОМЕТР</h1>
+    <div class="subtitle">Когда Слава выйдет из запоя на работу?</div>
+    <button class="refresh-btn" onclick="loadEvents()">🔄 Обновить события</button>
+  </header>
+  
+  <div id="events" class="events">
+    <div class="loading">⏳ Загружаем абсурд...</div>
+  </div>
+  
+  <footer>
+    <p>События генерируются из новостных лент и чистого безумия 🌀</p>
+  </footer>
+</div>
+
+<script>
+let eventsData = [];
+
+function getEventIcon(text) {
+  const lower = text.toLowerCase();
+  if (lower.includes('губернатор') || lower.includes('кремл')) return '📱';
+  if (lower.includes('фсб') || lower.includes('шпион')) return '🕴️';
+  if (lower.includes('белк')) return '🐿️';
+  if (lower.includes('космос') || lower.includes('маск') || lower.includes('spacex')) return '🚀';
+  if (lower.includes('мир') || lower.includes('украин') || lower.includes('сделк')) return '🕊️';
+  if (lower.includes('портал') || lower.includes('измерение')) return '🌀';
+  if (lower.includes('скорая') || lower.includes('больниц')) return '🚑';
+  if (lower.includes('звон') || lower.includes('телефон')) return '📞';
+  if (lower.includes('чат') || lower.includes('сообщ')) return '💬';
+  if (lower.includes('вышел') || lower.includes('пришёл')) return '🚪';
+  if (lower.includes('клоп') || lower.includes('насеком')) return '🐛';
+  if (lower.includes('чай') || lower.includes('кофе')) return '☕';
+  if (lower.includes('белорус')) return '🇧🇾';
+  if (lower.includes('трен') || lower.includes('спорт')) return '🏆';
+  if (lower.includes('взры') || lower.includes('удар')) return '💥';
+  if (lower.includes('интернет') || lower.includes('starlink')) return '📡';
+  if (lower.includes('угро') || lower.includes('сделк')) return '⚠️';
+  return '🎲';
+}
+
+function getEventTime(odds) {
+  if (odds < 5) return 'Сегодня 09:00';
+  if (odds < 15) return 'Сегодня 12:00';
+  if (odds < 50) return 'Сегодня 15:00';
+  if (odds < 100) return 'Завтра 10:00';
+  if (odds < 200) return 'Через 2 дня';
+  if (odds < 300) return 'Через неделю';
+  return 'Через 2 недели';
+}
+
+function renderEvents() {
+  const container = document.getElementById('events');
+  
+  if (eventsData.length === 0) {
+    container.innerHTML = '<div class="error">😱 События не найдены. Запустите генератор!</div>';
+    return;
+  }
+  
+  // Сортируем по возрастанию коэффициента (самые вероятные первыми)
+  const sorted = [...eventsData].sort((a, b) => a.odds - b.odds);
+  
+  container.innerHTML = sorted.map((event, index) => `
+    <div class="event" style="animation-delay: ${index * 0.05}s">
+      <div class="event-header">
+        <div class="event-icon">${getEventIcon(event.event)}</div>
+        <div class="odds">${event.odds.toFixed(2)}</div>
+      </div>
+      <div class="event-text">${event.event}</div>
+      <div class="event-time">⏰ ${getEventTime(event.odds)}</div>
+    </div>
+  `).join('');
+}
+
+async function loadEvents() {
+  const container = document.getElementById('events');
+  container.innerHTML = '<div class="loading">⏳ Загружаем события...</div>';
+  
+  try {
+    const response = await fetch('slava-events.json?t=' + Date.now());
+    
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+    
+    const data = await response.json();
+    
+    if (!Array.isArray(data) || data.length === 0) {
+      throw new Error('JSON пустой или неправильного формата');
+    }
+    
+    eventsData = data;
+    renderEvents();
+    
+  } catch (error) {
+    console.error('Ошибка загрузки:', error);
+    container.innerHTML = `
+      <div class="error">
+        <h3>❌ Не удалось загрузить события</h3>
+        <p style="margin-top: 10px;">${error.message}</p>
+        <p style="margin-top: 10px; font-size: 0.9em;">
+          Проверьте, что файл <code>slava-events.json</code> находится в той же папке.
+        </p>
+      </div>
+    `;
+  }
+}
+
+// Автозагрузка при открытии страницы
+loadEvents();
+
+// Автообновление каждые 5 минут
+setInterval(loadEvents, 5 * 60 * 1000);
+</script>
+</body>
+</html>
