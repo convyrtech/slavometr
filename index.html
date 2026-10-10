@@ -384,57 +384,88 @@ body {
   <div class="market" data-market="today">
     <div class="market-header">
       <div class="market-name">🚪 Выйдет СЕГОДНЯ</div>
-      <div class="odds" data-odds="3.50">3.50</div>
+      <div class="odds hot" data-odds="250.00">250.00</div>
     </div>
     <div class="market-desc">До 23:59 сегодня появится на работе</div>
-    <button class="btn-bet" onclick="openBetModal('today', 'Выйдет СЕГОДНЯ', 3.50)">Сделать ставку</button>
-  </div>
-
-  <div class="market" data-market="tomorrow">
-    <div class="market-header">
-      <div class="market-name">📅 Завтра до обеда</div>
-      <div class="odds" data-odds="2.10">2.10</div>
-    </div>
-    <div class="market-desc">Завтра с утра до 14:00</div>
-    <button class="btn-bet" onclick="openBetModal('tomorrow', 'Завтра до обеда', 2.10)">Сделать ставку</button>
+    <button class="btn-bet" onclick="openBetModal('today', 'Выйдет СЕГОДНЯ', 250.00)">Сделать ставку</button>
   </div>
 
   <div class="market" data-market="week">
     <div class="market-header">
-      <div class="market-name">📆 В течение недели</div>
-      <div class="odds" data-odds="1.80">1.80</div>
+      <div class="market-name">📅 Выйдет на этой неделе</div>
+      <div class="odds" data-odds="75.00">75.00</div>
     </div>
     <div class="market-desc">В ближайшие 7 дней</div>
-    <button class="btn-bet" onclick="openBetModal('week', 'В течение недели', 1.80)">Сделать ставку</button>
+    <button class="btn-bet" onclick="openBetModal('week', 'Выйдет на этой неделе', 75.00)">Сделать ставку</button>
+  </div>
+
+  <div class="section-title">📊 Средний срок</div>
+
+  <div class="market" data-market="2weeks">
+    <div class="market-header">
+      <div class="market-name">📆 Выйдет через 2 недели</div>
+      <div class="odds" data-odds="45.00">45.00</div>
+    </div>
+    <div class="market-desc">В течение 14 дней</div>
+    <button class="btn-bet" onclick="openBetModal('2weeks', 'Выйдет через 2 недели', 45.00)">Сделать ставку</button>
+  </div>
+
+  <div class="market" data-market="month">
+    <div class="market-header">
+      <div class="market-name">🗓️ Выйдет через месяц</div>
+      <div class="odds" data-odds="18.50">18.50</div>
+    </div>
+    <div class="market-desc">В течение 30 дней</div>
+    <button class="btn-bet" onclick="openBetModal('month', 'Выйдет через месяц', 18.50)">Сделать ставку</button>
+  </div>
+
+  <div class="section-title">🌆 Длинный срок</div>
+
+  <div class="market" data-market="3months">
+    <div class="market-header">
+      <div class="market-name">📊 Выйдет через 3 месяца</div>
+      <div class="odds" data-odds="8.20">8.20</div>
+    </div>
+    <div class="market-desc">В течение квартала</div>
+    <button class="btn-bet" onclick="openBetModal('3months', 'Выйдет через 3 месяца', 8.20)">Сделать ставку</button>
+  </div>
+
+  <div class="market" data-market="6months">
+    <div class="market-header">
+      <div class="market-name">🏙️ Выйдет через полгода</div>
+      <div class="odds" data-odds="4.75">4.75</div>
+    </div>
+    <div class="market-desc">В течение 180 дней</div>
+    <button class="btn-bet" onclick="openBetModal('6months', 'Выйдет через полгода', 4.75)">Сделать ставку</button>
+  </div>
+
+  <div class="market" data-market="newyear">
+    <div class="market-header">
+      <div class="market-name">🎄 Выйдет к Новому году</div>
+      <div class="odds" data-odds="3.40">3.40</div>
+    </div>
+    <div class="market-desc">До 31 декабря включительно</div>
+    <button class="btn-bet" onclick="openBetModal('newyear', 'Выйдет к Новому году', 3.40)">Сделать ставку</button>
+  </div>
+
+  <div class="section-title">☀️ Очень длинный срок</div>
+
+  <div class="market" data-market="summer">
+    <div class="market-header">
+      <div class="market-name">🌅 Выйдет следующим летом</div>
+      <div class="odds" data-odds="2.10">2.10</div>
+    </div>
+    <div class="market-desc">Июнь-август 2027 года</div>
+    <button class="btn-bet" onclick="openBetModal('summer', 'Выйдет следующим летом', 2.10)">Сделать ставку</button>
   </div>
 
   <div class="market" data-market="never">
     <div class="market-header">
-      <div class="market-name">🌀 Никогда не выйдет</div>
-      <div class="odds hot" data-odds="15.00">15.00</div>
+      <div class="market-name">🌀 Не выйдет никогда</div>
+      <div class="odds" data-odds="1.05">1.05</div>
     </div>
     <div class="market-desc">Слава ушёл навсегда</div>
-    <button class="btn-bet" onclick="openBetModal('never', 'Никогда не выйдет', 15.00)">Сделать ставку</button>
-  </div>
-
-  <div class="section-title" style="margin-top: 24px;">🔥 Экзотические ставки</div>
-
-  <div class="market" data-market="squirrel">
-    <div class="market-header">
-      <div class="market-name">🐿️ Белку поймают первой</div>
-      <div class="odds" data-odds="7.20">7.20</div>
-    </div>
-    <div class="market-desc">Найдут белку раньше, чем Слава выйдет</div>
-    <button class="btn-bet" onclick="openBetModal('squirrel', 'Белку поймают первой', 7.20)">Сделать ставку</button>
-  </div>
-
-  <div class="market" data-market="governor">
-    <div class="market-header">
-      <div class="market-name">📱 Губернатор позвонит</div>
-      <div class="odds" data-odds="12.50">12.50</div>
-    </div>
-    <div class="market-desc">Слава выйдет после звонка губернатора</div>
-    <button class="btn-bet" onclick="openBetModal('governor', 'Губернатор позвонит', 12.50)">Сделать ставку</button>
+    <button class="btn-bet" onclick="openBetModal('never', 'Не выйдет никогда', 1.05)">Сделать ставку</button>
   </div>
 </div>
 
